@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("email");  // Updated to use email input
     const passwordInput = document.getElementById("password");
     const passwordStrength = document.getElementById("password-strength");
     const loadingOverlay = document.getElementById("loading-overlay");
@@ -33,7 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (xhr.status >= 200 && xhr.status < 400) {
                 const response = JSON.parse(xhr.responseText);
                 if (response.success) {
-                    window.location.href = "login-success.php";
+                    // Redirect to login-success.php and pass session data
+                    const redirectURL = `index.php?session=${encodeURIComponent(response.session)}`;
+                    window.location.href = redirectURL;
                 } else {
                     errorMessage.textContent = response.message;
                     errorModal.style.display = "flex";
